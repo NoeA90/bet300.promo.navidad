@@ -51,6 +51,7 @@ body{
 }
 .header img{
   height:56px;
+  width:auto;
   filter:drop-shadow(0 4px 14px rgba(0,0,0,.7));
 }
 .header .season{
@@ -72,7 +73,7 @@ body{
   margin-bottom:20px;
 }
 .hero h1{
-  font-size:20px;
+  font-size:18px; /* un poquito más chico */
   font-weight:800;
 }
 .hero p{
@@ -102,7 +103,7 @@ body{
   position:relative;
   transition:.25s;
 }
-.gift.disabled{opacity:.45;filter:grayscale(1);pointer-events:none}
+.gift.disabled{opacity:.55;filter:grayscale(1);pointer-events:none}
 
 .gift-box{
   width:92px;height:70px;
@@ -127,10 +128,16 @@ body{
   font-size:12px;
   font-weight:700;
   color:var(--gold);
+  margin-bottom:2px;
 }
 
-.gift-result{display:none;margin-top:10px}
+/* por defecto oculto el resultado */
+.gift-result{display:none;margin-top:10px;color:var(--text)}
 .gift.open .gift-result{display:block}
+
+/* en los no elegidos, queremos mostrar “Había:” */
+.gift.show-other .gift-result{display:block}
+.gift-result small{color:var(--muted);font-weight:700}
 
 .btn-wa{
   margin-top:10px;
@@ -139,7 +146,8 @@ body{
   border-radius:999px;
   border:none;
   background:var(--wa);
-  font-weight:800;
+  color:#022c22;
+  font-weight:900;
   cursor:pointer;
 }
 
@@ -156,7 +164,7 @@ body{
   cursor:pointer;
   padding:12px 16px;
   border-radius:14px;
-  font-weight:800;
+  font-weight:900;
   background:rgba(255,255,255,.08);
   color:var(--text);
   border:1px solid rgba(148,163,184,.25);
@@ -165,21 +173,6 @@ body{
   background:linear-gradient(90deg,#38bdf8,#0ea5e9);
   color:#020617;
   border:none;
-}
-
-/* ===== Plataforma ===== */
-.platform{
-  margin-top:22px;
-  text-align:center;
-}
-.platform a{
-  display:inline-block;
-  padding:14px 20px;
-  border-radius:14px;
-  background:linear-gradient(90deg,#38bdf8,#0ea5e9);
-  color:#020617;
-  font-weight:800;
-  text-decoration:none;
 }
 
 /* ===== Modal ===== */
@@ -197,19 +190,20 @@ body{
   border-radius:18px;
   padding:22px;
   width:92%;
-  max-width:380px;
+  max-width:390px;
   text-align:center;
   border:1px solid rgba(148,163,184,.35);
+  box-shadow:0 25px 60px rgba(0,0,0,.55);
 }
 .modal-card h2{font-size:22px;margin-bottom:6px}
-.modal-card .sub{font-size:13px;color:var(--muted);margin-bottom:10px}
+.modal-card .sub{font-size:13px;color:var(--muted);margin-bottom:10px;line-height:1.35}
 .modal-card .code{
   margin:10px 0 8px;
   padding:10px;
   background:#0f172a;
   color:var(--gold);
   border-radius:10px;
-  font-weight:800;
+  font-weight:900;
   letter-spacing:.08em;
 }
 .modal-card .ts{
@@ -217,14 +211,26 @@ body{
   color:var(--muted);
   margin-bottom:12px;
 }
-.modal-card button{
-  margin-top:12px;
+.modal-card .btn-modal-wa{
+  width:100%;
+  padding:10px;
+  border-radius:999px;
+  border:none;
+  background:var(--wa);
+  color:#022c22;
+  font-weight:900;
+  cursor:pointer;
+  margin-top:10px;
+}
+.modal-card .btn-close{
+  margin-top:10px;
   width:100%;
   padding:10px;
   border-radius:999px;
   border:none;
   background:var(--cta);
-  font-weight:800;
+  color:#020617;
+  font-weight:900;
   cursor:pointer;
 }
 </style>
@@ -253,46 +259,53 @@ body{
   <button class="btn-action primary" id="openPlatformBtn">🎮 Ir a la plataforma</button>
 </div>
 
-<div class="platform" style="display:none">
-  <a href="https://www.bet300.biz/" target="_blank">🎮 Acceder a la plataforma</a>
-</div>
-
 </div>
 
 <!-- Modal -->
 <div class="modal" id="modal">
   <div class="modal-card">
-    <h2 id="modalTitle"></h2>
-    <div class="sub" id="modalPrize"></div>
-    <div class="code" id="modalCode"></div>
-    <div class="ts" id="modalTS"></div>
-    <button onclick="closeModal()">Cerrar</button>
+    <h2 id="modalTitle">🎉 Premio obtenido</h2>
+    <div class="sub" id="modalPrize">—</div>
+    <div class="code" id="modalCode">—</div>
+    <div class="ts" id="modalTS">—</div>
+    <button class="btn-modal-wa" id="modalWaBtn">📲 Reclamar por WhatsApp</button>
+    <button class="btn-close" id="modalCloseBtn">Cerrar</button>
   </div>
 </div>
 
 <script>
-/* ===== Snow ===== */
+/* =======================
+   NIEVE
+======================= */
 const snow=document.getElementById("snow");
-for(let i=0;i<40;i++){
+for(let i=0;i<42;i++){
   const f=document.createElement("i");
   f.style.left=Math.random()*100+"vw";
   f.style.animationDuration=(6+Math.random()*6)+"s";
-  f.style.opacity=(0.4+Math.random()*0.6);
+  f.style.opacity=(0.35+Math.random()*0.65);
+  f.style.transform=`translateY(${Math.random()*-120}px)`;
   snow.appendChild(f);
 }
 
-/* ===== PCs (5) ===== */
-const pc=new URLSearchParams(location.search).get("pc")||"1";
-const WP={
+/* =======================
+   PARAMETRO pc (1..5)
+======================= */
+const pc = new URLSearchParams(location.search).get("pc") || "1";
+
+/* 👉 CAMBIÁ ESTOS NUMEROS */
+const WP_BY_PC = {
   1:"5491150030414",
   2:"5491150030414",
   3:"5491150030414",
   4:"5491150030414",
   5:"5491150030414"
-}[pc];
+};
+const WP = WP_BY_PC[pc] || WP_BY_PC[1];
 
-/* ===== Promos ===== */
-const PROMOS=[
+/* =======================
+   PROMOS
+======================= */
+const PROMOS = [
   "Bono 10%",
   "Bono 20%",
   "Bono 30%",
@@ -301,16 +314,24 @@ const PROMOS=[
   "Doble carga"
 ];
 
-const giftsEl=document.getElementById("gifts");
-const modal=document.getElementById("modal");
-const modalTitle=document.getElementById("modalTitle");
-const modalPrize=document.getElementById("modalPrize");
-const modalCode=document.getElementById("modalCode");
-const modalTS=document.getElementById("modalTS");
+/* =======================
+   UI refs
+======================= */
+const giftsEl = document.getElementById("gifts");
+const modal = document.getElementById("modal");
+const modalTitle = document.getElementById("modalTitle");
+const modalPrize = document.getElementById("modalPrize");
+const modalCode = document.getElementById("modalCode");
+const modalTS = document.getElementById("modalTS");
+const modalWaBtn = document.getElementById("modalWaBtn");
+const modalCloseBtn = document.getElementById("modalCloseBtn");
 
-const tryAgainBtn=document.getElementById("tryAgainBtn");
-const openPlatformBtn=document.getElementById("openPlatformBtn");
+const tryAgainBtn = document.getElementById("tryAgainBtn");
+const openPlatformBtn = document.getElementById("openPlatformBtn");
 
+/* =======================
+   helpers
+======================= */
 function tsString(d=new Date()){
   const dd=String(d.getDate()).padStart(2,'0');
   const mm=String(d.getMonth()+1).padStart(2,'0');
@@ -319,59 +340,166 @@ function tsString(d=new Date()){
   const mi=String(d.getMinutes()).padStart(2,'0');
   return `${dd}/${mm}/${yyyy} ${hh}:${mi}`;
 }
-
+function antifraud(){
+  return "XMAS-" + Math.random().toString(36).slice(2,8).toUpperCase();
+}
 function alreadyUsedMsg(){
   alert("⚠️ Ya usaste tu chance de hoy. Volvé mañana para otra oportunidad 🎁");
 }
+function openPlatform(){
+  window.open("https://www.bet300.biz/", "_blank", "noopener");
+}
+function closeModal(){
+  modal.classList.remove("show");
+}
 
-/* === Guardamos para que quede consistente incluso si recarga === */
+/* =======================
+   storage
+======================= */
 let used = localStorage.getItem("xmas_used") === "1";
 let savedPrize = localStorage.getItem("xmas_prize");
 let savedCode  = localStorage.getItem("xmas_code");
 let savedTS    = localStorage.getItem("xmas_ts");
+let savedOthers = null;
+try { savedOthers = JSON.parse(localStorage.getItem("xmas_others") || "null"); } catch(e){ savedOthers=null; }
 
-function antifraud(){
-  return "XMAS-"+Math.random().toString(36).substr(2,6).toUpperCase();
-}
-
-function closeModal(){ modal.classList.remove("show"); }
-
-function openPlatform(){
-  window.open("https://www.bet300.biz/", "_blank", "noopener");
-}
+/* =======================
+   Buttons
+======================= */
 openPlatformBtn.addEventListener("click", openPlatform);
 
-/* Botón “Tirar nuevamente” */
 tryAgainBtn.addEventListener("click", ()=>{
   if(used) return alreadyUsedMsg();
-  alert("🎁 Todavía no abriste ningún regalo. Elegí uno de los cofres primero.");
+  alert("🎁 Todavía no elegiste ningún regalo. Abrí uno de los cofres.");
 });
 
-/* Init gifts */
+modalCloseBtn.addEventListener("click", closeModal);
+
+/* =======================
+   WhatsApp message
+======================= */
+function buildWaMsg(prize, code, ts){
+  return `Hola, gané *${prize}* en la promo Navidad 🎄
+Código: ${code}
+Fecha/Hora: ${ts}
+PC: ${pc}
+
+Quiero reclamarlo con mi próxima carga.`;
+}
+function goWA(prize, code, ts){
+  const msg = buildWaMsg(prize, code, ts);
+  location.href = `https://wa.me/${WP}?text=${encodeURIComponent(msg)}`;
+}
+
+/* =======================
+   Render gifts
+======================= */
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
+
+function makeGiftCard(prizeText){
+  const d=document.createElement("div");
+  d.className="gift";
+  d.dataset.prize = prizeText;
+
+  d.innerHTML=`
+    <div class="gift-label">Regalo sorpresa</div>
+    <div class="gift-box">
+      <div class="ribbon-v"></div>
+      <div class="ribbon-h"></div>
+    </div>
+    <div class="gift-result">
+      <strong>${prizeText}</strong>
+      <button class="btn-wa" type="button">Reclamar por WhatsApp</button>
+    </div>
+  `;
+  return d;
+}
+
+/* =======================
+   Apply "chosen" state
+======================= */
+function applyChosenState(chosenPrize, code, ts, allSelected, chosenIndex){
+  const all = document.querySelectorAll(".gift");
+
+  // 1) En todos: mostrar qué había, sin botón
+  all.forEach((g, idx)=>{
+    const prize = g.dataset.prize;
+    g.classList.add("disabled");
+    g.classList.remove("open");
+    g.classList.add("show-other");            // fuerza mostrar gift-result
+    g.querySelector(".gift-label").textContent = "No elegido";
+
+    const res = g.querySelector(".gift-result");
+    res.innerHTML = `<small>Había:</small><br><strong>${prize}</strong>`;
+  });
+
+  // 2) En el elegido: abrir + botón WA
+  const chosenCard = all[chosenIndex] || all[0];
+  chosenCard.classList.remove("disabled");
+  chosenCard.classList.add("open");
+  chosenCard.classList.remove("show-other");
+  chosenCard.querySelector(".gift-label").textContent = "🎉 Tu premio";
+
+  const chosenRes = chosenCard.querySelector(".gift-result");
+  chosenRes.innerHTML = `
+    <strong>${chosenPrize}</strong>
+    <button class="btn-wa" type="button">📲 Reclamar por WhatsApp</button>
+  `;
+  chosenRes.querySelector(".btn-wa").onclick = (ev)=>{
+    ev.stopPropagation();
+    goWA(chosenPrize, code, ts);
+  };
+
+  // 3) Modal WA
+  modalWaBtn.onclick = ()=> goWA(chosenPrize, code, ts);
+}
+
+/* =======================
+   Init
+======================= */
 function init(){
-  const selected = PROMOS.sort(()=>0.5-Math.random()).slice(0,3);
+  // Si ya usó hoy: reconstruir con premios visibles
+  if(used && savedPrize && savedCode && savedTS && Array.isArray(savedOthers) && savedOthers.length === 3){
+    giftsEl.innerHTML = "";
+    savedOthers.forEach(p=>{
+      const card = makeGiftCard(p);
+      // si llega a verse, que no navegue
+      card.onclick = alreadyUsedMsg;
+      giftsEl.appendChild(card);
+    });
 
-  selected.forEach(p=>{
-    const d=document.createElement("div");
-    d.className="gift";
-    d.innerHTML=`
-      <div class="gift-label">Regalo sorpresa</div>
-      <div class="gift-box">
-        <div class="ribbon-v"></div>
-        <div class="ribbon-h"></div>
-      </div>
-      <div class="gift-result">
-        <strong>${p}</strong>
-        <button class="btn-wa">Reclamar por WhatsApp</button>
-      </div>
-    `;
+    // Elegimos mostrar el premio ganado en el primer cofre para consistencia visual:
+    const chosenIndex = savedOthers.indexOf(savedPrize) >= 0 ? savedOthers.indexOf(savedPrize) : 0;
 
-    d.addEventListener("click", ()=>{
-      if(used){
-        alreadyUsedMsg();
-        return;
-      }
+    applyChosenState(savedPrize, savedCode, savedTS, savedOthers, chosenIndex);
 
+    // modal no se abre solo, pero queda listo
+    return;
+  }
+
+  // Si no usó: crear 3 premios random
+  const selected = shuffle(PROMOS).slice(0,3);
+
+  giftsEl.innerHTML = "";
+  selected.forEach((p, idx)=>{
+    const card = makeGiftCard(p);
+
+    // antes de elegir, ocultar resultado
+    card.classList.remove("open");
+    card.querySelector(".gift-result").style.display = "none";
+
+    // click en cofre
+    card.addEventListener("click", ()=>{
+      if(used) return alreadyUsedMsg();
+
+      // marcar usado
       used = true;
       localStorage.setItem("xmas_used","1");
 
@@ -381,56 +509,24 @@ function init(){
       localStorage.setItem("xmas_prize", p);
       localStorage.setItem("xmas_code", code);
       localStorage.setItem("xmas_ts", ts);
+      localStorage.setItem("xmas_others", JSON.stringify(selected));
 
-      // UI
-      document.querySelectorAll(".gift").forEach(g=>g.classList.add("disabled"));
-      d.classList.remove("disabled");
-      d.classList.add("open");
+      // set saved vars (por si)
+      savedPrize = p; savedCode = code; savedTS = ts; savedOthers = selected;
 
-      // Modal
-      modalTitle.textContent="🎉 Premio obtenido";
-      modalPrize.textContent=`Premio: ${p} · PC ${pc}`;
-      modalCode.textContent=code;
-      modalTS.textContent=`🕒 ${ts}`;
+      // aplicar UI final (con premios restantes visibles)
+      applyChosenState(p, code, ts, selected, idx);
+
+      // abrir modal
+      modalTitle.textContent = "🎉 Premio obtenido";
+      modalPrize.textContent = `Premio: ${p} · PC ${pc}`;
+      modalCode.textContent = code;
+      modalTS.textContent = `🕒 ${ts}`;
       modal.classList.add("show");
-
-      // Botón WA dentro del premio (queda visible cuando se abre)
-      const btn = d.querySelector(".btn-wa");
-      btn.onclick=()=>{
-        const msg = `Hola, gané *${p}* en la promo Navidad 🎄\n`+
-                    `Código: ${code}\n`+
-                    `Fecha/Hora: ${ts}\n`+
-                    `PC: ${pc}\n\n`+
-                    `Quiero reclamarlo con mi próxima carga.`;
-        location.href=`https://wa.me/${WP}?text=${encodeURIComponent(msg)}`;
-      };
     });
 
-    giftsEl.appendChild(d);
+    giftsEl.appendChild(card);
   });
-
-  /* Si ya usó y hay data guardada: mostramos un cofrecito “abierto” con el premio */
-  if(used && savedPrize && savedCode && savedTS){
-    // Bloquear todos y mostrar info mínima (sin depender del orden random)
-    document.querySelectorAll(".gift").forEach(g=>g.classList.add("disabled"));
-    // Elegimos el primero para mostrar el premio (visual)
-    const first = document.querySelector(".gift");
-    if(first){
-      first.classList.remove("disabled");
-      first.classList.add("open");
-      first.querySelector(".gift-result strong").textContent = savedPrize;
-
-      const btn = first.querySelector(".btn-wa");
-      btn.onclick=()=>{
-        const msg = `Hola, gané *${savedPrize}* en la promo Navidad 🎄\n`+
-                    `Código: ${savedCode}\n`+
-                    `Fecha/Hora: ${savedTS}\n`+
-                    `PC: ${pc}\n\n`+
-                    `Quiero reclamarlo con mi próxima carga.`;
-        location.href=`https://wa.me/${WP}?text=${encodeURIComponent(msg)}`;
-      };
-    }
-  }
 }
 
 init();
