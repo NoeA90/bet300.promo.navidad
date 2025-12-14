@@ -14,14 +14,11 @@
 :root{
   --bg:#050818;
   --panel:#0b1024;
-  --panel-soft:#111736;
   --border:#1f2750;
   --text:#f9fbff;
   --muted:#adb5da;
   --accent:#facc15;
   --accent-soft:#fbbf24;
-  --danger:#fb7185;
-  --ok:#22c55e;
   --wa:#25D366;
 }
 
@@ -35,7 +32,7 @@ body{
   overflow-x:hidden;
 }
 
-/* Fondo con glow */
+/* Fondo */
 body::before{
   content:"";
   position:fixed;inset:0;z-index:-2;
@@ -46,363 +43,228 @@ body::before{
 }
 
 /* Nieve */
-.snow{
-  position:fixed;inset:0;pointer-events:none;z-index:-1;
-}
+.snow{position:fixed;inset:0;pointer-events:none;z-index:-1}
 .snow i{
-  position:absolute;
-  top:-10px;
-  width:6px;height:6px;
+  position:absolute; top:-10px;
+  width:6px;height:6px; border-radius:50%;
   background:rgba(255,255,255,.85);
-  border-radius:50%;
-  opacity:.8;
-  filter:blur(.5px);
+  opacity:.8; filter:blur(.5px);
   animation:fall linear infinite;
 }
 @keyframes fall{
-  0%{transform:translate3d(0, -10px,0)}
-  100%{transform:translate3d(var(--drift,20px), 110vh,0);opacity:0}
+  0%{transform:translate3d(0,-10px,0)}
+  100%{transform:translate3d(var(--drift,20px),110vh,0);opacity:0}
 }
 
-/* Layout */
-.container{
-  max-width:960px;
-  margin:0 auto;
-  padding:18px 16px 120px;
-}
+.container{max-width:960px;margin:0 auto;padding:18px 16px 120px}
 
 /* Header */
-.header{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  margin-bottom:18px;
-}
-.brand{
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
-.brand img{
-  height:34px;
-  width:auto;
-  filter:drop-shadow(0 3px 10px rgba(0,0,0,.6));
-}
+.header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
+.brand{display:flex;align-items:center;gap:10px}
+.brand img{height:34px;width:auto;filter:drop-shadow(0 3px 10px rgba(0,0,0,.6))}
 .brand-tag{
-  font-size:12px;
-  padding:4px 10px;
-  border-radius:999px;
+  font-size:12px;padding:4px 10px;border-radius:999px;
   border:1px solid rgba(250,204,21,.45);
   background:linear-gradient(90deg,rgba(250,204,21,.12),rgba(248,250,252,.03));
-  color:#facc15;
-  font-weight:700;
-  text-transform:uppercase;
-  letter-spacing:.06em;
+  color:#facc15;font-weight:700;text-transform:uppercase;letter-spacing:.06em
 }
 .badge-time{
-  display:flex;
-  gap:8px;
-  align-items:center;
-  padding:8px 12px;
-  border-radius:999px;
+  display:flex;gap:8px;align-items:center;
+  padding:8px 12px;border-radius:999px;
   background:linear-gradient(90deg,rgba(55,65,194,.8),rgba(8,47,73,.9));
   border:1px solid rgba(148,163,184,.5);
-  font-size:13px;
-  color:var(--muted);
+  font-size:13px;color:var(--muted);
 }
 .badge-time b{
   background:rgba(15,23,42,.9);
-  padding:4px 10px;
-  border-radius:999px;
-  color:#facc15;
-  font-variant-numeric:tabular-nums;
+  padding:4px 10px;border-radius:999px;
+  color:#facc15;font-variant-numeric:tabular-nums;
 }
 
 /* Hero */
 .hero{
   background:linear-gradient(145deg,rgba(15,23,42,.95),rgba(30,64,175,.65));
-  border-radius:18px;
-  padding:18px 16px;
+  border-radius:18px;padding:18px 16px;
   border:1px solid rgba(148,163,184,.4);
   box-shadow:0 20px 35px rgba(15,23,42,.8);
   margin-bottom:18px;
 }
-.hero-main{
-  display:flex;
-  flex-direction:column;
-  gap:8px;
-}
-.hero-kicker{
-  font-size:13px;
-  color:var(--muted);
-  text-transform:uppercase;
-  letter-spacing:.18em;
-}
-.hero-title{
-  font-size:24px;
-  font-weight:800;
-}
-.hero-title span{
-  color:var(--accent-soft);
-}
-.hero-sub{
-  font-size:14px;
-  color:var(--muted);
-}
+.hero-kicker{font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:.18em;margin-bottom:8px}
+.hero-title{font-size:24px;font-weight:800;margin-bottom:8px}
+.hero-title span{color:var(--accent-soft)}
+.hero-sub{font-size:14px;color:var(--muted)}
 .hero-sub b{color:#e5e7eb}
-.hero-note{
-  margin-top:6px;
-  font-size:12px;
-  color:var(--muted);
-}
+.hero-note{margin-top:8px;font-size:12px;color:var(--muted)}
 
-/* Sección regalos */
+/* Section */
 .section{margin-top:18px}
-.section-title{
-  font-size:18px;
-  font-weight:700;
-  margin-bottom:8px;
-}
-.section-sub{
-  font-size:13px;
-  color:var(--muted);
-  margin-bottom:14px;
-}
-.gift-grid{
-  display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:14px;
-}
-@media(max-width:720px){
-  .gift-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-}
+.section-title{font-size:18px;font-weight:700;margin-bottom:8px}
+.section-sub{font-size:13px;color:var(--muted);margin-bottom:14px}
+
+/* Grid */
+.gift-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media(max-width:720px){.gift-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:520px){
   .gift-grid{grid-template-columns:minmax(0,1fr)}
+  .header{flex-direction:column;align-items:flex-start}
+  .badge-time{align-self:flex-start}
 }
 
-/* Tarjeta */
+/* Card */
 .gift{
-  background:var(--panel);
-  border-radius:18px;
+  background:var(--panel); border-radius:18px;
   padding:14px 12px 14px;
   border:1px solid var(--border);
   box-shadow:0 12px 24px rgba(15,23,42,.8);
-  position:relative;
-  overflow:hidden;
+  position:relative; overflow:hidden;
   cursor:pointer;
   transition:transform .22s ease, box-shadow .22s ease, border-color .22s ease;
 }
 .gift::before{
-  content:"";
-  position:absolute;
-  inset:0;
+  content:""; position:absolute; inset:0;
   background:radial-gradient(circle at top,rgba(248,250,252,.12),transparent 60%);
-  opacity:0;
-  transition:opacity .22s ease;
+  opacity:0; transition:opacity .22s ease;
 }
-.gift:hover{
-  transform:translateY(-4px);
-  box-shadow:0 18px 32px rgba(15,23,42,.95);
-  border-color:rgba(248,250,252,.25);
-}
+.gift:hover{transform:translateY(-4px);box-shadow:0 18px 32px rgba(15,23,42,.95);border-color:rgba(248,250,252,.25)}
 .gift:hover::before{opacity:1}
 
-/* Caja */
-.gift-box{
-  position:relative;
-  height:110px;
-  display:flex;
-  align-items:flex-end;
-  justify-content:center;
-  margin-bottom:12px;
-}
+/* Gift box */
+.gift-box{position:relative;height:110px;display:flex;align-items:flex-end;justify-content:center;margin-bottom:12px}
 
-/* Caja ROJA */
+/* Caja roja */
 .gift-body{
-  width:84px;height:64px;
-  border-radius:10px;
+  width:84px;height:64px;border-radius:10px;
   background:linear-gradient(145deg,#b91c1c,#7f1d1d);
   position:relative;
   box-shadow:0 12px 22px rgba(15,23,42,.85);
 }
 .gift-body::before{
-  content:"";
-  position:absolute;
-  inset:0;
+  content:""; position:absolute; inset:0;
   background:linear-gradient(90deg,rgba(248,250,252,.22),rgba(248,250,252,.05));
-  mix-blend-mode:screen;
-  opacity:.55;
+  mix-blend-mode:screen; opacity:.55;
 }
 
-/* Cintas DORADAS */
-.gift-ribbon-vert,
-.gift-ribbon-horiz{
-  position:absolute;
-  background:linear-gradient(180deg,#fde68a,#facc15,#ca8a04);
-}
-.gift-ribbon-vert{
-  width:14px;height:64px;
-  left:50%;
-  bottom:0;
-  transform:translateX(-50%);
-  border-radius:999px;
-}
-.gift-ribbon-horiz{
-  height:12px;width:84px;
-  bottom:26px;
-  left:50%;
-  transform:translateX(-50%);
-  border-radius:999px;
-}
+/* Cintas doradas */
+.gift-ribbon-vert,.gift-ribbon-horiz{position:absolute;background:linear-gradient(180deg,#fde68a,#facc15,#ca8a04)}
+.gift-ribbon-vert{width:14px;height:64px;left:50%;bottom:0;transform:translateX(-50%);border-radius:999px}
+.gift-ribbon-horiz{height:12px;width:84px;bottom:26px;left:50%;transform:translateX(-50%);border-radius:999px}
 
 /* Tapa */
 .gift-lid{
-  position:absolute;
-  bottom:56px;
-  width:92px;height:26px;
-  border-radius:9px;
+  position:absolute;bottom:56px;width:92px;height:26px;border-radius:9px;
   background:linear-gradient(145deg,#dc2626,#7f1d1d);
   box-shadow:0 8px 14px rgba(15,23,42,.75);
   transform-origin:50% 100%;
   transition:transform .28s ease, box-shadow .28s ease;
 }
 .gift-lid::before{
-  content:"";
-  position:absolute;
-  inset:0;
+  content:""; position:absolute; inset:0;
   background:linear-gradient(90deg,rgba(248,250,252,.22),rgba(248,250,252,.05));
-  mix-blend-mode:screen;
-  opacity:.6;
+  mix-blend-mode:screen; opacity:.6;
 }
 
 /* Moño dorado */
 .gift-bow{
-  position:absolute;
-  bottom:80px;
-  width:44px;height:26px;
+  position:absolute;bottom:80px;width:44px;height:26px;
   background:radial-gradient(circle at 30% 30%,#fef3c7,#facc15,#ca8a04);
   border-radius:999px 999px 6px 6px;
   box-shadow:0 6px 10px rgba(15,23,42,.7);
 }
-.gift-bow::before,
-.gift-bow::after{
-  content:"";
-  position:absolute;
-  width:18px;height:18px;
-  border-radius:999px;
+.gift-bow::before,.gift-bow::after{
+  content:""; position:absolute; width:18px;height:18px;border-radius:999px;
   border:3px solid rgba(248,250,252,.9);
-  border-top-color:transparent;
-  border-left-color:transparent;
+  border-top-color:transparent;border-left-color:transparent;
 }
 .gift-bow::before{left:-4px;top:2px;transform:rotate(-14deg)}
 .gift-bow::after{right:-4px;top:2px;transform:scaleX(-1) rotate(-14deg)}
 
 /* Etiqueta */
 .gift-label{
-  position:absolute;
-  bottom:6px;
-  left:50%;
-  transform:translateX(-50%);
-  padding:3px 8px;
-  border-radius:999px;
+  position:absolute;bottom:6px;left:50%;transform:translateX(-50%);
+  padding:3px 8px;border-radius:999px;
   background:rgba(15,23,42,.9);
   border:1px solid rgba(248,250,252,.28);
-  font-size:10px;
-  letter-spacing:.06em;
-  text-transform:uppercase;
-  color:#fefce8;
+  font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:#fefce8;
 }
 
-/* Contenido */
 .gift-content{text-align:center;margin-top:4px}
 .gift-title{font-size:15px;font-weight:800;margin-bottom:4px}
-.gift-text{font-size:13px;color:var(--muted);min-height:3.6em}
+.gift-text{font-size:13px;color:var(--muted);min-height:3.6em;white-space:pre-line}
 .gift-footnote{margin-top:6px;font-size:11px;color:var(--muted)}
 
-/* Botón WhatsApp */
-.btn-claim{
-  margin-top:10px;
-  width:100%;
-  border:none;
-  border-radius:999px;
-  padding:9px 10px;
-  font-size:13px;
-  font-weight:800;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:6px;
-  background:linear-gradient(90deg,#22c55e,#16a34a);
-  color:#022c22;
-  box-shadow:0 10px 20px rgba(5,46,22,.7);
-  cursor:pointer;
-  transition:transform .16s ease, box-shadow .16s ease, filter .16s ease;
-}
-.btn-claim span.icon{font-size:15px}
-.btn-claim:hover{
-  transform:translateY(-1px);
-  box-shadow:0 14px 24px rgba(5,46,22,.8);
-  filter:brightness(1.05);
+/* Open */
+.gift.open .gift-lid{transform:translateY(-16px) rotateX(18deg);box-shadow:0 18px 26px rgba(15,23,42,.9)}
+
+/* Ocultar premio hasta elegir */
+.gift .gift-title,.gift .gift-text,.gift .gift-footnote{opacity:0;transform:translateY(6px);pointer-events:none}
+.gift.open .gift-title,.gift.open .gift-text,.gift.open .gift-footnote{
+  opacity:1;transform:none;pointer-events:auto;transition:opacity .25s ease, transform .25s ease
 }
 
-/* Open: tapa levantada */
-.gift.open .gift-lid{
-  transform:translateY(-16px) rotateX(18deg);
-  box-shadow:0 18px 26px rgba(15,23,42,.9);
-}
-
-/* ===== Ocultar premios hasta elegir ===== */
-.gift .gift-title,
-.gift .gift-text,
-.gift .gift-footnote,
-.gift .btn-claim{
-  opacity:0;
-  transform:translateY(6px);
-  pointer-events:none;
-}
-.gift.open .gift-title,
-.gift.open .gift-text,
-.gift.open .gift-footnote,
-.gift.open .btn-claim{
-  opacity:1;
-  transform:none;
-  pointer-events:auto;
-  transition:opacity .25s ease, transform .25s ease;
-}
-
-/* Regalos no elegidos */
-.gift.disabled{
-  opacity:.55;
-  filter:grayscale(1);
-  pointer-events:none;
-}
-.gift.disabled .gift-title,
-.gift.disabled .gift-footnote,
-.gift.disabled .btn-claim{
-  display:none;
-}
-.gift.disabled .gift-text{
-  opacity:1;
-  transform:none;
-  min-height:auto;
-  color:#cbd5f5;
-}
+/* No elegidos */
+.gift.disabled{opacity:.55;filter:grayscale(1);pointer-events:none}
+.gift.disabled .gift-title,.gift.disabled .gift-footnote{display:none}
+.gift.disabled .gift-text{opacity:1;transform:none;min-height:auto;color:#cbd5f5}
 
 /* Footer */
-.footer-cta{
-  margin-top:22px;
-  text-align:center;
-  font-size:12px;
-  color:var(--muted);
-}
+.footer-cta{margin-top:22px;text-align:center;font-size:12px;color:var(--muted)}
 .footer-cta b{color:#e5e7eb}
 
-/* Responsive header */
-@media(max-width:520px){
-  .header{flex-direction:column;align-items:flex-start}
-  .badge-time{align-self:flex-start}
+/* ===== Modal ===== */
+.modal-backdrop{
+  position:fixed;inset:0;display:none;place-items:center;z-index:50;
+  background:rgba(2,6,23,.75);
+  backdrop-filter: blur(6px);
 }
+.modal{
+  width:min(520px,92vw);
+  border-radius:18px;
+  background:linear-gradient(145deg,rgba(15,23,42,.96),rgba(30,64,175,.45));
+  border:1px solid rgba(148,163,184,.35);
+  box-shadow:0 22px 55px rgba(0,0,0,.55);
+  padding:16px;
+}
+.modal-head{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:10px}
+.modal-title{font-size:18px;font-weight:800}
+.modal-x{
+  border:none;background:rgba(255,255,255,.08);color:#e5e7eb;
+  width:36px;height:36px;border-radius:12px;cursor:pointer;
+}
+.modal-body{display:grid;gap:10px}
+.prize-pill{
+  display:inline-flex;align-items:center;gap:8px;
+  width:max-content;
+  padding:8px 12px;border-radius:999px;
+  background:rgba(250,204,21,.12);
+  border:1px solid rgba(250,204,21,.35);
+  color:#fde68a;font-weight:800;
+}
+.codebox{
+  background:rgba(15,23,42,.65);
+  border:1px solid rgba(148,163,184,.25);
+  border-radius:14px;
+  padding:12px;
+  display:grid;gap:6px;
+}
+.codebox .row{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.codebox .k{color:var(--muted);font-size:12px}
+.codebox .v{font-weight:800;font-variant-numeric:tabular-nums}
+.modal-actions{display:flex;gap:10px;margin-top:6px}
+.btn{
+  width:100%;border:none;cursor:pointer;
+  padding:12px 14px;border-radius:14px;
+  font-weight:900;
+}
+.btn.wa{
+  background:linear-gradient(90deg,#22c55e,#16a34a);
+  color:#022c22;box-shadow:0 12px 24px rgba(5,46,22,.55);
+}
+.btn.ghost{
+  background:rgba(255,255,255,.08);
+  color:#e5e7eb;
+  border:1px solid rgba(148,163,184,.25);
+}
+.modal-note{font-size:12px;color:var(--muted);line-height:1.35}
 </style>
 </head>
 <body>
@@ -410,115 +272,137 @@ body::before{
 <div class="snow" id="snow"></div>
 
 <div class="container">
-
   <header class="header">
     <div class="brand">
       <img src="logo-bet300.svg" alt="BET300">
       <span class="brand-tag">Especial Navidad</span>
     </div>
-    <div class="badge-time">
-      🎄 Ventana activa
-      <b id="countdown">24:00:00</b>
-    </div>
+    <div class="badge-time">🎄 Ventana activa <b id="countdown">--:--:--</b></div>
   </header>
 
   <section class="hero">
-    <div class="hero-main">
-      <div class="hero-kicker">promo exclusiva</div>
-      <h1 class="hero-title">
-        Elegí un <span>regalo de Navidad</span> y desbloqueá tu promo.
-      </h1>
-      <p class="hero-sub">
-        Tenés <b>Abrí un regalo<b> y descubrí tu bonus.
-        Se acredita con tu <b>próxima carga mínima</b>.
-      </p>
-      <p class="hero-note">
-        *Promos válidas por tiempo limitado.
-      </p>
-    </div>
+    <div class="hero-kicker">promo exclusiva</div>
+    <h1 class="hero-title">Elegí un <span>regalo de Navidad</span> y desbloqueá tu promo.</h1>
+    <p class="hero-sub">
+      Tenés <b>1 elección por día</b>. Abrí un regalo y descubrí tu bonus.
+      Se acredita con tu <b>próxima carga mínima</b>.
+    </p>
+    <p class="hero-note">*Promos válidas por tiempo limitado. Sujetas a verificación con el operador.</p>
   </section>
 
+  <section class="section">
+    <h2 class="section-title">Elegí 1 de 3 regalos 🎁</h2>
+    <p class="section-sub">No vas a ver los premios hasta elegir. Luego te mostramos lo que había en los otros.</p>
 
     <div class="gift-grid" id="giftGrid">
       <article class="gift" data-gift="0">
         <div class="gift-box">
-          <div class="gift-body"></div>
-          <div class="gift-lid"></div>
-          <div class="gift-bow"></div>
-          <div class="gift-ribbon-vert"></div>
-          <div class="gift-ribbon-horiz"></div>
+          <div class="gift-body"></div><div class="gift-lid"></div><div class="gift-bow"></div>
+          <div class="gift-ribbon-vert"></div><div class="gift-ribbon-horiz"></div>
           <div class="gift-label"></div>
         </div>
         <div class="gift-content">
           <h3 class="gift-title"></h3>
           <p class="gift-text"></p>
-          <button class="btn-claim" type="button">
-            <span class="icon">📲</span>
-            <span>Hablar por WhatsApp</span>
-          </button>
           <div class="gift-footnote"></div>
         </div>
       </article>
 
       <article class="gift" data-gift="1">
         <div class="gift-box">
-          <div class="gift-body"></div>
-          <div class="gift-lid"></div>
-          <div class="gift-bow"></div>
-          <div class="gift-ribbon-vert"></div>
-          <div class="gift-ribbon-horiz"></div>
+          <div class="gift-body"></div><div class="gift-lid"></div><div class="gift-bow"></div>
+          <div class="gift-ribbon-vert"></div><div class="gift-ribbon-horiz"></div>
           <div class="gift-label"></div>
         </div>
         <div class="gift-content">
           <h3 class="gift-title"></h3>
           <p class="gift-text"></p>
-          <button class="btn-claim" type="button">
-            <span class="icon">📲</span>
-            <span>Hablar por WhatsApp</span>
-          </button>
           <div class="gift-footnote"></div>
         </div>
       </article>
 
       <article class="gift" data-gift="2">
         <div class="gift-box">
-          <div class="gift-body"></div>
-          <div class="gift-lid"></div>
-          <div class="gift-bow"></div>
-          <div class="gift-ribbon-vert"></div>
-          <div class="gift-ribbon-horiz"></div>
+          <div class="gift-body"></div><div class="gift-lid"></div><div class="gift-bow"></div>
+          <div class="gift-ribbon-vert"></div><div class="gift-ribbon-horiz"></div>
           <div class="gift-label"></div>
         </div>
         <div class="gift-content">
           <h3 class="gift-title"></h3>
           <p class="gift-text"></p>
-          <button class="btn-claim" type="button">
-            <span class="icon">📲</span>
-            <span>Hablar por WhatsApp</span>
-          </button>
           <div class="gift-footnote"></div>
         </div>
       </article>
     </div>
-  </section>
 
-  <div class="footer-cta">
-    Si tenés dudas, escribí y mencioná <b>“Promo Navidad BET300”</b>.
+    <div class="footer-cta">
+      Si tenés dudas, escribí y mencioná <b>“Promo Navidad”</b>.
+    </div>
+  </section>
+</div>
+
+<!-- Modal -->
+<div class="modal-backdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-hidden="true">
+  <div class="modal">
+    <div class="modal-head">
+      <div class="modal-title" id="modalTitle">🎁 Tu premio</div>
+      <button class="modal-x" id="modalClose" aria-label="Cerrar">✕</button>
+    </div>
+
+    <div class="modal-body">
+      <div class="prize-pill" id="modalPrize">—</div>
+
+      <div class="codebox">
+        <div class="row"><span class="k">Código antifraude</span><span class="v" id="modalCode">—</span></div>
+        <div class="row"><span class="k">Fecha/Hora</span><span class="v" id="modalTS">—</span></div>
+        <div class="row"><span class="k">Dispositivo</span><span class="v" id="modalDevice">—</span></div>
+        <div class="row"><span class="k">PC</span><span class="v" id="modalPC">—</span></div>
+      </div>
+
+      <div class="modal-note" id="modalNote">
+        Presentá este código al operador. El premio se acredita con tu próxima carga mínima.
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn ghost" id="modalOk">Seguir</button>
+        <button class="btn wa" id="modalWa">📲 Reclamar por WhatsApp</button>
+      </div>
+    </div>
   </div>
 </div>
 
 <script>
-/* ========= Config ========= */
-const WP_NUMBER = "5491150030414"; // <-- PONÉ TU NÚMERO REAL
+/* =========================
+   1) PARAMETROS (4 PCs)
+========================= */
+const WP_NUMBERS = {
+  pc1: "54911XXXXXXXXX",
+  pc2: "54911XXXXXXXXX",
+  pc3: "54911XXXXXXXXX",
+  pc4: "5491150030414" // tu número
+};
 
-/* Promos random */
+const params = new URLSearchParams(location.search);
+const pc = params.get("pc") || "4"; // default pc4
+function getWP(){
+  if(pc === "1") return WP_NUMBERS.pc1;
+  if(pc === "2") return WP_NUMBERS.pc2;
+  if(pc === "3") return WP_NUMBERS.pc3;
+  return WP_NUMBERS.pc4;
+}
+const WP = getWP();
+
+/* =========================
+   2) PROMOS (random)
+========================= */
 const PROMOS = [
-  { tag:"50% EXTRA", title:"Bono 50% Navidad", text:"Recibís un 50% extra sobre tu próxima carga mínima de $5.000.", footnote:"Tope de bonificación a coordinar con el operador." },
+  { tag:"50% EXTRA",  title:"Bono 50% Navidad",  text:"Recibís un 50% extra sobre tu próxima carga mínima de $5.000.", footnote:"Tope a coordinar con el operador." },
+  { tag:"20% EXTRA",  title:"Bono 20% Navidad",  text:"Recibís un 20% extra sobre tu próxima carga mínima de $5.000.", footnote:"Tope a coordinar con el operador." },
   { tag:"$10.000 BONUS", title:"$10.000 de regalo", text:"Sumás $10.000 extra con tu carga a partir de $5.000.", footnote:"Válido una vez por usuario durante la promo." },
-  { tag:"TU CARGA X 2", title:"Doble de tu carga", text:"Te doblamos tu próxima carga navideña (hasta el límite acordado con el operador).", footnote:"Sujeto a validación manual y condiciones internas." },
-  { tag:"10% CASHBACK", title:"10% de vuelta", text:"Te devolvemos el 10% de tus pérdidas netas de la noche en fichas.", footnote:"Se acredita dentro de las 24 hs." },
-  { tag:"20% EXTRA", title:"Bono 20% Navidad", text:"Recibís un 20% extra sobre tu próxima carga mínima de $5.000.", footnote:"Tope de bonificación a coordinar con el operador." },
-  { tag:"$5.000 BONUS", title:"$5.000 de regalo", text:"Sumás $5.000 extra con tu carga a partir de $5.000.", footnote:"Válido una vez por usuario durante la promo." },
+  { tag:"$5.000 BONUS",  title:"$5.000 de regalo",  text:"Sumás $5.000 extra con tu carga a partir de $5.000.",  footnote:"Válido una vez por usuario durante la promo." },
+  { tag:"TU CARGA X 2", title:"Doble de tu carga", text:"Te doblamos tu próxima carga navideña (hasta el límite acordado).", footnote:"Sujeto a validación manual." },
+  { tag:"10% CASHBACK", title:"10% de vuelta", text:"Te devolvemos el 10% de tus pérdidas netas de la noche en fichas.", footnote:"Se acredita dentro de las 24 hs." }
+];
 
 function shuffle(arr){
   const a = arr.slice();
@@ -529,58 +413,220 @@ function shuffle(arr){
   return a;
 }
 
-/* ========= Regalos: oculto hasta elegir ========= */
-function setupGifts(){
-  const selected = shuffle(PROMOS).slice(0,3);
-  const gifts = document.querySelectorAll(".gift");
-  let opened = false;
+/* =========================
+   3) ANTIFRAUDE + FECHA
+========================= */
+const SALT = "bet300-navidad-v1";
+function ensureDeviceId(){
+  let id = localStorage.getItem("device_id");
+  if(!id){
+    id = (crypto.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2,10)}`);
+    localStorage.setItem("device_id", id);
+  }
+  return id;
+}
+const DEVICE_ID = ensureDeviceId();
 
+function todayKey(){
+  const n = new Date();
+  return `${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,'0')}-${String(n.getDate()).padStart(2,'0')}`;
+}
+function tsString(d=new Date()){
+  const dd=String(d.getDate()).padStart(2,'0');
+  const mm=String(d.getMonth()+1).padStart(2,'0');
+  const yyyy=d.getFullYear();
+  const hh=String(d.getHours()).padStart(2,'0');
+  const mi=String(d.getMinutes()).padStart(2,'0');
+  return `${dd}/${mm}/${yyyy} ${hh}:${mi}`;
+}
+async function sha256hex(msg){
+  const enc = new TextEncoder().encode(msg);
+  const buf = await crypto.subtle.digest("SHA-256", enc);
+  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,"0")).join("");
+}
+async function makeClaimCode(prizeLabel){
+  const base = `${DEVICE_ID}|${todayKey()}|${prizeLabel}|pc:${pc}|${SALT}`;
+  const hex = await sha256hex(base);
+  return hex.slice(0,10).toUpperCase();
+}
+
+/* =========================
+   4) SOLO 1 VEZ POR DIA
+========================= */
+const STORE = {
+  date: "xmas_date",
+  chosen: "xmas_chosen",
+  prize: "xmas_prize",
+  code: "xmas_code",
+  ts: "xmas_ts"
+};
+
+function restoreDaily(){
+  const t = todayKey();
+  const stored = localStorage.getItem(STORE.date);
+  if(!stored){
+    localStorage.setItem(STORE.date, t);
+    return;
+  }
+  if(stored !== t){
+    localStorage.removeItem(STORE.chosen);
+    localStorage.removeItem(STORE.prize);
+    localStorage.removeItem(STORE.code);
+    localStorage.removeItem(STORE.ts);
+    localStorage.setItem(STORE.date, t);
+  }
+}
+
+function scheduleMidnightReset(){
+  const now = new Date();
+  const midnight = new Date(now.getFullYear(),now.getMonth(),now.getDate()+1,0,0,5,0);
+  setTimeout(()=>{
+    localStorage.removeItem(STORE.chosen);
+    localStorage.removeItem(STORE.prize);
+    localStorage.removeItem(STORE.code);
+    localStorage.removeItem(STORE.ts);
+    localStorage.setItem(STORE.date, todayKey());
+    // recarga para dejar todo fresh
+    location.reload();
+  }, midnight.getTime() - now.getTime());
+}
+
+/* =========================
+   5) MODAL
+========================= */
+const modalBackdrop = document.getElementById("modalBackdrop");
+const modalClose = document.getElementById("modalClose");
+const modalOk = document.getElementById("modalOk");
+const modalWa = document.getElementById("modalWa");
+const modalPrize = document.getElementById("modalPrize");
+const modalCode = document.getElementById("modalCode");
+const modalTS = document.getElementById("modalTS");
+const modalDevice = document.getElementById("modalDevice");
+const modalPC = document.getElementById("modalPC");
+
+function openModal({prizeLabel, code, ts}){
+  modalPrize.textContent = `🎉 ${prizeLabel}`;
+  modalCode.textContent = code;
+  modalTS.textContent = ts;
+  modalDevice.textContent = DEVICE_ID.slice(0,8).toUpperCase();
+  modalPC.textContent = `PC ${pc}`;
+
+  modalBackdrop.style.display = "grid";
+  modalBackdrop.setAttribute("aria-hidden","false");
+}
+
+function closeModal(){
+  modalBackdrop.style.display = "none";
+  modalBackdrop.setAttribute("aria-hidden","true");
+}
+
+modalClose.addEventListener("click", closeModal);
+modalOk.addEventListener("click", closeModal);
+modalBackdrop.addEventListener("click", (e)=>{ if(e.target === modalBackdrop) closeModal(); });
+
+/* =========================
+   6) REGALOS (SELECCION)
+========================= */
+function setupGifts(){
+  const gifts = document.querySelectorAll(".gift");
+  const selected = shuffle(PROMOS).slice(0,3);
+
+  // pintar data
   gifts.forEach((gift, idx)=>{
     const promo = selected[idx];
-
-    // etiqueta visible siempre
     gift.querySelector(".gift-label").textContent = "Regalo sorpresa";
-
-    // contenido (queda oculto por CSS hasta open)
     gift.querySelector(".gift-title").textContent = promo.title;
     gift.querySelector(".gift-text").textContent = promo.text;
     gift.querySelector(".gift-footnote").textContent = promo.footnote;
+  });
 
-    // Click en tarjeta -> elegir 1
-    gift.addEventListener("click", (ev)=>{
+  // si ya eligió hoy, restaurar
+  const chosen = localStorage.getItem(STORE.chosen);
+  const savedPrize = localStorage.getItem(STORE.prize);
+  if(chosen !== null && savedPrize){
+    const chosenIdx = Number(chosen);
+    const prize = JSON.parse(savedPrize);
+    const code = localStorage.getItem(STORE.code) || "—";
+    const ts = localStorage.getItem(STORE.ts) || tsString();
+
+    gifts.forEach((gift, idx)=>{
+      const promo = selected[idx];
+      if(idx === chosenIdx){
+        gift.classList.add("open");
+        gift.querySelector(".gift-label").textContent = promo.tag;
+      } else {
+        gift.classList.add("disabled");
+        gift.querySelector(".gift-label").textContent = "No elegido";
+        gift.querySelector(".gift-text").textContent = `Este no fue tu regalo 🎁\n\nHabía: ${promo.title}`;
+      }
+    });
+
+    // rearmar botón WA del modal (por si lo vuelve a abrir)
+    modalWa.onclick = ()=>{
+      const msg = `Hola, abrí mi *Regalo de Navidad* 🎄\n\n`+
+                  `🎁 Premio: ${prize.title}\n`+
+                  `🔐 Código: ${code}\n`+
+                  `🕒 ${ts}\n`+
+                  `PC: ${pc}\n\n`+
+                  `Quiero reclamarlo con mi próxima carga.`;
+      location.href = `https://wa.me/${WP}?text=${encodeURIComponent(msg)}`;
+    };
+
+    return; // no permitir volver a elegir
+  }
+
+  // permitir elegir 1
+  let opened = false;
+
+  gifts.forEach((gift, idx)=>{
+    gift.addEventListener("click", async ()=>{
       if(opened) return;
-      if(ev.target.closest(".btn-claim")) return;
-
       opened = true;
+
+      const promo = selected[idx];
       gift.classList.add("open");
       gift.querySelector(".gift-label").textContent = promo.tag;
 
-      // Mostrar los otros dos como "no elegidos" + qué había
-      gifts.forEach(other=>{
-        if(other !== gift){
+      // generar code + ts y persistir
+      const prizeLabel = promo.title;
+      const code = await makeClaimCode(prizeLabel);
+      const ts = tsString(new Date());
+
+      localStorage.setItem(STORE.chosen, String(idx));
+      localStorage.setItem(STORE.prize, JSON.stringify(promo));
+      localStorage.setItem(STORE.code, code);
+      localStorage.setItem(STORE.ts, ts);
+      localStorage.setItem(STORE.date, todayKey());
+
+      // bloquear otros y mostrar qué había
+      gifts.forEach((other, j)=>{
+        if(j !== idx){
           other.classList.add("disabled");
-          const otherIdx = Number(other.dataset.gift);
-          const p = selected[otherIdx];
           other.querySelector(".gift-label").textContent = "No elegido";
-          other.querySelector(".gift-text").textContent =
-            `Este no fue tu regalo 🎁\n\nHabía: ${p.title}`;
+          other.querySelector(".gift-text").textContent = `Este no fue tu regalo 🎁\n\nHabía: ${selected[j].title}`;
         }
       });
-    });
 
-    // Botón WhatsApp
-    gift.querySelector(".btn-claim").addEventListener("click",(ev)=>{
-      ev.stopPropagation();
-      const msg =
-        `Hola, abrí mi *Regalo de Navidad BET300* 🎄\n\n`+
-        `🎁 Promo obtenida: ${promo.title}\n\n`+
-        `¿Me contás condiciones y mínimo de carga?`;
-      window.location.href = `https://wa.me/${WP_NUMBER}?text=${encodeURIComponent(msg)}`;
+      // preparar WA
+      modalWa.onclick = ()=>{
+        const msg = `Hola, abrí mi *Regalo de Navidad* 🎄\n\n`+
+                    `🎁 Premio: ${promo.title}\n`+
+                    `🔐 Código: ${code}\n`+
+                    `🕒 ${ts}\n`+
+                    `PC: ${pc}\n\n`+
+                    `Quiero reclamarlo con mi próxima carga.`;
+        location.href = `https://wa.me/${WP}?text=${encodeURIComponent(msg)}`;
+      };
+
+      // abrir modal
+      openModal({prizeLabel: promo.title, code, ts});
     });
   });
 }
 
-/* ========= Countdown ========= */
+/* =========================
+   7) COUNTDOWN + SNOW
+========================= */
 function setupCountdown(){
   const el = document.getElementById("countdown");
   function update(){
@@ -597,7 +643,6 @@ function setupCountdown(){
   setInterval(update,1000);
 }
 
-/* ========= Snow ========= */
 function setupSnow(){
   const snow = document.getElementById("snow");
   const flakes = 40;
@@ -614,10 +659,14 @@ function setupSnow(){
   }
 }
 
-/* ========= Init ========= */
+/* =========================
+   INIT
+========================= */
+restoreDaily();
 setupGifts();
 setupCountdown();
 setupSnow();
+scheduleMidnightReset();
 </script>
 </body>
 </html>
