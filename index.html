@@ -4,7 +4,6 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>BET300 · Especial Navidad</title>
-<meta name="theme-color" content="#050818"/>
 
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;800&display=swap" rel="stylesheet">
 
@@ -16,87 +15,83 @@
   --text:#f9fbff;
   --muted:#adb5da;
   --gold:#facc15;
-  --gold-soft:#fbbf24;
   --wa:#25D366;
   --cta:#38bdf8;
 }
 
+/* Reset */
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
 body{
   font-family:"Montserrat",system-ui;
   background:radial-gradient(circle at top,#111827 0,#020617 60%);
   color:var(--text);
+  overflow-x:hidden;
+}
+
+/* ===== Nieve ===== */
+.snow{position:fixed;inset:0;pointer-events:none;z-index:1}
+.snow i{
+  position:absolute;
+  top:-10px;
+  width:6px;height:6px;
+  background:white;
+  border-radius:50%;
+  opacity:.8;
+  animation:fall linear infinite;
+}
+@keyframes fall{
+  to{transform:translateY(110vh)}
 }
 
 /* ===== Header ===== */
 .header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:12px;
-  padding:16px;
+  text-align:center;
+  padding:18px 16px 6px;
 }
-.brand{
-  flex:1;
-  display:flex;
-  justify-content:center;
-}
-.brand img{
-  height:52px;
-  width:auto;
+.header img{
+  height:56px;
   filter:drop-shadow(0 4px 14px rgba(0,0,0,.7));
 }
-.badge-time{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  padding:8px 12px;
-  border-radius:999px;
-  background:linear-gradient(90deg,#1e3a8a,#0f172a);
-  border:1px solid rgba(148,163,184,.4);
+.header .season{
+  margin-top:6px;
   font-size:12px;
-}
-.badge-time .season{
-  padding:4px 10px;
-  border-radius:999px;
-  border:1px solid rgba(250,204,21,.4);
-  background:rgba(250,204,21,.12);
-  color:var(--gold);
-  font-weight:800;
-  font-size:11px;
-}
-.badge-time b{
-  background:#020617;
-  padding:4px 10px;
-  border-radius:999px;
+  letter-spacing:.28em;
+  text-transform:uppercase;
   color:var(--gold);
 }
 
 /* ===== Layout ===== */
 .container{max-width:960px;margin:auto;padding:0 16px 120px}
+
 .hero{
   background:linear-gradient(145deg,#0f172a,#1e40af);
   border-radius:18px;
-  padding:20px;
+  padding:18px;
   border:1px solid rgba(148,163,184,.35);
   margin-bottom:20px;
 }
-.hero h1{font-size:24px;font-weight:800}
-.hero h1 span{color:var(--gold-soft)}
-.hero p{margin-top:8px;font-size:14px;color:var(--muted)}
+.hero h1{
+  font-size:20px;
+  font-weight:800;
+}
+.hero p{
+  margin-top:8px;
+  font-size:14px;
+  color:var(--muted);
+}
 
+/* ===== Gifts ===== */
 .gift-grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:16px;
-  margin-top:20px;
+  margin-top:18px;
 }
 @media(max-width:720px){
   .gift-grid{grid-template-columns:1fr}
 }
 
-/* ===== Gifts ===== */
 .gift{
   background:var(--panel);
   border:1px solid var(--border);
@@ -105,100 +100,91 @@ body{
   text-align:center;
   cursor:pointer;
   position:relative;
+  transition:.25s;
 }
 .gift.disabled{opacity:.45;filter:grayscale(1);pointer-events:none}
 
 .gift-box{
-  width:90px;height:70px;
-  margin:10px auto 14px;
+  width:92px;height:70px;
+  margin:8px auto 12px;
   background:linear-gradient(145deg,#b91c1c,#7f1d1d);
   border-radius:10px;
   position:relative;
 }
-.ribbon{
-  position:absolute;
-  left:50%;
-  top:0;
+.ribbon-v{
+  position:absolute;left:50%;top:0;
   width:14px;height:100%;
   transform:translateX(-50%);
   background:linear-gradient(#fde68a,#facc15,#ca8a04);
 }
-.ribbon.h{
+.ribbon-h{
+  position:absolute;left:0;top:28px;
   width:100%;height:12px;
-  top:28px;left:0;transform:none;
+  background:linear-gradient(#fde68a,#facc15,#ca8a04);
 }
 
 .gift-label{
   font-size:12px;
-  margin-bottom:6px;
-  color:var(--gold);
   font-weight:700;
+  color:var(--gold);
 }
 
-.gift-result{
-  display:none;
-  margin-top:10px;
-}
+.gift-result{display:none;margin-top:10px}
 .gift.open .gift-result{display:block}
 
 .btn-wa{
   margin-top:10px;
   width:100%;
-  border:none;
   padding:10px;
   border-radius:999px;
+  border:none;
   background:var(--wa);
-  color:#022c22;
   font-weight:800;
   cursor:pointer;
 }
 
-/* ===== Platform CTA ===== */
-.platform-cta{
+/* ===== Plataforma ===== */
+.platform{
   margin-top:28px;
   text-align:center;
 }
-.platform-cta a{
+.platform a{
   display:inline-block;
-  padding:14px 18px;
+  padding:14px 20px;
   border-radius:14px;
   background:linear-gradient(90deg,#38bdf8,#0ea5e9);
   color:#020617;
   font-weight:800;
   text-decoration:none;
-  box-shadow:0 12px 24px rgba(56,189,248,.45);
 }
 
 /* ===== Modal ===== */
 .modal{
-  position:fixed;
-  inset:0;
+  position:fixed;inset:0;
   background:rgba(2,6,23,.75);
   display:none;
   align-items:center;
   justify-content:center;
-  z-index:50;
+  z-index:10;
 }
 .modal.show{display:flex}
 .modal-card{
   background:#020617;
   border-radius:18px;
   padding:22px;
-  max-width:360px;
   width:92%;
+  max-width:360px;
   text-align:center;
   border:1px solid rgba(148,163,184,.35);
 }
-.modal-card h2{font-size:22px;margin-bottom:8px}
-.modal-card p{font-size:14px;color:var(--muted)}
+.modal-card h2{font-size:22px}
 .modal-card .code{
   margin:12px 0;
   padding:8px;
-  border-radius:8px;
   background:#0f172a;
   color:var(--gold);
+  border-radius:8px;
   font-weight:800;
-  letter-spacing:.08em;
 }
 .modal-card button{
   margin-top:12px;
@@ -207,117 +193,120 @@ body{
   border-radius:999px;
   border:none;
   background:var(--cta);
-  color:#020617;
   font-weight:800;
-  cursor:pointer;
 }
 </style>
 </head>
 
 <body>
 
+<div class="snow" id="snow"></div>
+
 <header class="header">
-  <div class="brand">
-    <img src="logo-bet300.svg" alt="BET300">
-  </div>
-  <div class="badge-time">
-    🎄 Ventana activa
-    <span class="season">Especial Navidad</span>
-    <b id="countdown">--:--:--</b>
-  </div>
+  <img src="logo-bet300.svg" alt="BET300">
+  <div class="season">Especial Navidad</div>
 </header>
 
 <div class="container">
 
-  <section class="hero">
-    <h1>Elegí tu <span>Regalo de Navidad</span></h1>
-    <p>Tenés una sola oportunidad. Abrí un regalo y reclamá tu premio con el operador.</p>
-  </section>
+<section class="hero">
+  <h1>Elegí tu regalo 🎁</h1>
+  <p>Tenés una sola oportunidad. Abrí un regalo y descubrí tu premio.</p>
+</section>
 
-  <div class="gift-grid" id="gifts"></div>
+<div class="gift-grid" id="gifts"></div>
 
-  <div class="platform-cta">
-    <a href="https://www.bet300.biz/" target="_blank">🎮 Acceder a la Plataforma</a>
-  </div>
+<div class="platform">
+  <a href="https://www.bet300.biz/" target="_blank">🎮 Acceder a la plataforma</a>
+</div>
 </div>
 
 <!-- Modal -->
 <div class="modal" id="modal">
   <div class="modal-card">
     <h2 id="modalTitle"></h2>
-    <p id="modalText"></p>
     <div class="code" id="modalCode"></div>
     <button onclick="closeModal()">Cerrar</button>
   </div>
 </div>
 
 <script>
-/* ===== PCs ===== */
-const PC = new URLSearchParams(location.search).get("pc") || "1";
-const WP = {
+/* ===== Snow ===== */
+const snow=document.getElementById("snow");
+for(let i=0;i<40;i++){
+  const f=document.createElement("i");
+  f.style.left=Math.random()*100+"vw";
+  f.style.animationDuration=6+Math.random()*6+"s";
+  f.style.opacity=Math.random();
+  snow.appendChild(f);
+}
+
+/* ===== PCs (5) ===== */
+const pc=new URLSearchParams(location.search).get("pc")||"1";
+const WP={
   1:"5491150030414",
   2:"5491150030414",
   3:"5491150030414",
-  4:"5491150030414"
-}[PC];
+  4:"5491150030414",
+  5:"5491150030414"
+}[pc];
 
-const PROMOS = [
+/* ===== Promos ===== */
+const PROMOS=[
+  "Bono 10%",
   "Bono 20%",
   "Bono 30%",
-  "Doble carga",
   "$5.000 extra",
   "$10.000 extra",
-  "Cashback 10%"
+  "Doble carga"
 ];
 
-const giftsEl = document.getElementById("gifts");
-const modal = document.getElementById("modal");
-const modalTitle = document.getElementById("modalTitle");
-const modalText = document.getElementById("modalText");
-const modalCode = document.getElementById("modalCode");
+const giftsEl=document.getElementById("gifts");
+const modal=document.getElementById("modal");
+const modalTitle=document.getElementById("modalTitle");
+const modalCode=document.getElementById("modalCode");
 
-let used = localStorage.getItem("xmas_used");
+let used=localStorage.getItem("xmas_used");
 
-function code(){
-  return "XMAS-"+Date.now().toString(36).toUpperCase().slice(-6);
+function antifraud(){
+  return "XMAS-"+Math.random().toString(36).substr(2,6).toUpperCase();
 }
-
-function closeModal(){
-  modal.classList.remove("show");
-}
+function closeModal(){modal.classList.remove("show");}
 
 function init(){
-  const shuffled = PROMOS.sort(()=>0.5-Math.random()).slice(0,3);
-  shuffled.forEach(p=>{
+  const selected=PROMOS.sort(()=>0.5-Math.random()).slice(0,3);
+  selected.forEach(p=>{
     const d=document.createElement("div");
     d.className="gift";
     d.innerHTML=`
       <div class="gift-label">Regalo sorpresa</div>
-      <div class="gift-box"><div class="ribbon"></div><div class="ribbon h"></div></div>
+      <div class="gift-box">
+        <div class="ribbon-v"></div>
+        <div class="ribbon-h"></div>
+      </div>
       <div class="gift-result">
         <strong>${p}</strong>
         <button class="btn-wa">Reclamar por WhatsApp</button>
-      </div>`;
+      </div>
+    `;
     d.onclick=()=>{
       if(used) return;
       used=true;
       localStorage.setItem("xmas_used","1");
-      const c=code();
+      const code=antifraud();
       modalTitle.textContent="🎉 Premio obtenido";
-      modalText.textContent=p;
-      modalCode.textContent=c;
+      modalCode.textContent=code;
       modal.classList.add("show");
       document.querySelectorAll(".gift").forEach(g=>g.classList.add("disabled"));
       d.classList.remove("disabled");
       d.classList.add("open");
       d.querySelector(".btn-wa").onclick=()=>{
-        location.href=`https://wa.me/${WP}?text=${encodeURIComponent("Gané "+p+" en la promo Navidad. Código: "+c)}`;
+        location.href=`https://wa.me/${WP}?text=${encodeURIComponent("Gané "+p+" en la promo Navidad. Código "+code)}`;
       };
     };
     giftsEl.appendChild(d);
   });
 }
-
 init();
 </script>
 
