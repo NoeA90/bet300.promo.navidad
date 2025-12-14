@@ -143,9 +143,33 @@ body{
   cursor:pointer;
 }
 
+/* ===== Actions below gifts ===== */
+.actions{
+  margin-top:18px;
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  justify-content:center;
+}
+.btn-action{
+  border:none;
+  cursor:pointer;
+  padding:12px 16px;
+  border-radius:14px;
+  font-weight:800;
+  background:rgba(255,255,255,.08);
+  color:var(--text);
+  border:1px solid rgba(148,163,184,.25);
+}
+.btn-action.primary{
+  background:linear-gradient(90deg,#38bdf8,#0ea5e9);
+  color:#020617;
+  border:none;
+}
+
 /* ===== Plataforma ===== */
 .platform{
-  margin-top:28px;
+  margin-top:22px;
   text-align:center;
 }
 .platform a{
@@ -173,18 +197,25 @@ body{
   border-radius:18px;
   padding:22px;
   width:92%;
-  max-width:360px;
+  max-width:380px;
   text-align:center;
   border:1px solid rgba(148,163,184,.35);
 }
-.modal-card h2{font-size:22px}
+.modal-card h2{font-size:22px;margin-bottom:6px}
+.modal-card .sub{font-size:13px;color:var(--muted);margin-bottom:10px}
 .modal-card .code{
-  margin:12px 0;
-  padding:8px;
+  margin:10px 0 8px;
+  padding:10px;
   background:#0f172a;
   color:var(--gold);
-  border-radius:8px;
+  border-radius:10px;
   font-weight:800;
+  letter-spacing:.08em;
+}
+.modal-card .ts{
+  font-size:12px;
+  color:var(--muted);
+  margin-bottom:12px;
 }
 .modal-card button{
   margin-top:12px;
@@ -194,6 +225,7 @@ body{
   border:none;
   background:var(--cta);
   font-weight:800;
+  cursor:pointer;
 }
 </style>
 </head>
@@ -216,16 +248,24 @@ body{
 
 <div class="gift-grid" id="gifts"></div>
 
-<div class="platform">
+<div class="actions">
+  <button class="btn-action" id="tryAgainBtn">🎁 Tirar nuevamente</button>
+  <button class="btn-action primary" id="openPlatformBtn">🎮 Ir a la plataforma</button>
+</div>
+
+<div class="platform" style="display:none">
   <a href="https://www.bet300.biz/" target="_blank">🎮 Acceder a la plataforma</a>
 </div>
+
 </div>
 
 <!-- Modal -->
 <div class="modal" id="modal">
   <div class="modal-card">
     <h2 id="modalTitle"></h2>
+    <div class="sub" id="modalPrize"></div>
     <div class="code" id="modalCode"></div>
+    <div class="ts" id="modalTS"></div>
     <button onclick="closeModal()">Cerrar</button>
   </div>
 </div>
@@ -236,8 +276,8 @@ const snow=document.getElementById("snow");
 for(let i=0;i<40;i++){
   const f=document.createElement("i");
   f.style.left=Math.random()*100+"vw";
-  f.style.animationDuration=6+Math.random()*6+"s";
-  f.style.opacity=Math.random();
+  f.style.animationDuration=(6+Math.random()*6)+"s";
+  f.style.opacity=(0.4+Math.random()*0.6);
   snow.appendChild(f);
 }
 
@@ -264,17 +304,53 @@ const PROMOS=[
 const giftsEl=document.getElementById("gifts");
 const modal=document.getElementById("modal");
 const modalTitle=document.getElementById("modalTitle");
+const modalPrize=document.getElementById("modalPrize");
 const modalCode=document.getElementById("modalCode");
+const modalTS=document.getElementById("modalTS");
 
-let used=localStorage.getItem("xmas_used");
+const tryAgainBtn=document.getElementById("tryAgainBtn");
+const openPlatformBtn=document.getElementById("openPlatformBtn");
+
+function tsString(d=new Date()){
+  const dd=String(d.getDate()).padStart(2,'0');
+  const mm=String(d.getMonth()+1).padStart(2,'0');
+  const yyyy=d.getFullYear();
+  const hh=String(d.getHours()).padStart(2,'0');
+  const mi=String(d.getMinutes()).padStart(2,'0');
+  return `${dd}/${mm}/${yyyy} ${hh}:${mi}`;
+}
+
+function alreadyUsedMsg(){
+  alert("⚠️ Ya usaste tu chance de hoy. Volvé mañana para otra oportunidad 🎁");
+}
+
+/* === Guardamos para que quede consistente incluso si recarga === */
+let used = localStorage.getItem("xmas_used") === "1";
+let savedPrize = localStorage.getItem("xmas_prize");
+let savedCode  = localStorage.getItem("xmas_code");
+let savedTS    = localStorage.getItem("xmas_ts");
 
 function antifraud(){
   return "XMAS-"+Math.random().toString(36).substr(2,6).toUpperCase();
 }
-function closeModal(){modal.classList.remove("show");}
 
+function closeModal(){ modal.classList.remove("show"); }
+
+function openPlatform(){
+  window.open("https://www.bet300.biz/", "_blank", "noopener");
+}
+openPlatformBtn.addEventListener("click", openPlatform);
+
+/* Botón “Tirar nuevamente” */
+tryAgainBtn.addEventListener("click", ()=>{
+  if(used) return alreadyUsedMsg();
+  alert("🎁 Todavía no abriste ningún regalo. Elegí uno de los cofres primero.");
+});
+
+/* Init gifts */
 function init(){
-  const selected=PROMOS.sort(()=>0.5-Math.random()).slice(0,3);
+  const selected = PROMOS.sort(()=>0.5-Math.random()).slice(0,3);
+
   selected.forEach(p=>{
     const d=document.createElement("div");
     d.className="gift";
@@ -289,24 +365,74 @@ function init(){
         <button class="btn-wa">Reclamar por WhatsApp</button>
       </div>
     `;
-    d.onclick=()=>{
-      if(used) return;
-      used=true;
+
+    d.addEventListener("click", ()=>{
+      if(used){
+        alreadyUsedMsg();
+        return;
+      }
+
+      used = true;
       localStorage.setItem("xmas_used","1");
-      const code=antifraud();
-      modalTitle.textContent="🎉 Premio obtenido";
-      modalCode.textContent=code;
-      modal.classList.add("show");
+
+      const code = antifraud();
+      const ts = tsString(new Date());
+
+      localStorage.setItem("xmas_prize", p);
+      localStorage.setItem("xmas_code", code);
+      localStorage.setItem("xmas_ts", ts);
+
+      // UI
       document.querySelectorAll(".gift").forEach(g=>g.classList.add("disabled"));
       d.classList.remove("disabled");
       d.classList.add("open");
-      d.querySelector(".btn-wa").onclick=()=>{
-        location.href=`https://wa.me/${WP}?text=${encodeURIComponent("Gané "+p+" en la promo Navidad. Código "+code)}`;
+
+      // Modal
+      modalTitle.textContent="🎉 Premio obtenido";
+      modalPrize.textContent=`Premio: ${p} · PC ${pc}`;
+      modalCode.textContent=code;
+      modalTS.textContent=`🕒 ${ts}`;
+      modal.classList.add("show");
+
+      // Botón WA dentro del premio (queda visible cuando se abre)
+      const btn = d.querySelector(".btn-wa");
+      btn.onclick=()=>{
+        const msg = `Hola, gané *${p}* en la promo Navidad 🎄\n`+
+                    `Código: ${code}\n`+
+                    `Fecha/Hora: ${ts}\n`+
+                    `PC: ${pc}\n\n`+
+                    `Quiero reclamarlo con mi próxima carga.`;
+        location.href=`https://wa.me/${WP}?text=${encodeURIComponent(msg)}`;
       };
-    };
+    });
+
     giftsEl.appendChild(d);
   });
+
+  /* Si ya usó y hay data guardada: mostramos un cofrecito “abierto” con el premio */
+  if(used && savedPrize && savedCode && savedTS){
+    // Bloquear todos y mostrar info mínima (sin depender del orden random)
+    document.querySelectorAll(".gift").forEach(g=>g.classList.add("disabled"));
+    // Elegimos el primero para mostrar el premio (visual)
+    const first = document.querySelector(".gift");
+    if(first){
+      first.classList.remove("disabled");
+      first.classList.add("open");
+      first.querySelector(".gift-result strong").textContent = savedPrize;
+
+      const btn = first.querySelector(".btn-wa");
+      btn.onclick=()=>{
+        const msg = `Hola, gané *${savedPrize}* en la promo Navidad 🎄\n`+
+                    `Código: ${savedCode}\n`+
+                    `Fecha/Hora: ${savedTS}\n`+
+                    `PC: ${pc}\n\n`+
+                    `Quiero reclamarlo con mi próxima carga.`;
+        location.href=`https://wa.me/${WP}?text=${encodeURIComponent(msg)}`;
+      };
+    }
+  }
 }
+
 init();
 </script>
 
