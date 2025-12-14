@@ -424,25 +424,20 @@ body::before{
 
   <section class="hero">
     <div class="hero-main">
-      <div class="hero-kicker">promo exclusiva para reactivación</div>
+      <div class="hero-kicker">promo exclusiva</div>
       <h1 class="hero-title">
         Elegí un <span>regalo de Navidad</span> y desbloqueá tu promo.
       </h1>
       <p class="hero-sub">
-        Tenés <b>1 elección</b>. Abrí un regalo y descubrí tu bonus.
+        Tenés <b>Abrí un regalo<b> y descubrí tu bonus.
         Se acredita con tu <b>próxima carga mínima</b>.
       </p>
       <p class="hero-note">
-        *Promos válidas por tiempo limitado. Sujetas a verificación con el operador.
+        *Promos válidas por tiempo limitado.
       </p>
     </div>
   </section>
 
-  <section class="section">
-    <h2 class="section-title">Elegí 1 de 3 regalos 🎁</h2>
-    <p class="section-sub">
-      No vas a ver los premios hasta elegir. Cuando elijas, te mostramos también lo que había en los otros regalos.
-    </p>
 
     <div class="gift-grid" id="giftGrid">
       <article class="gift" data-gift="0">
@@ -519,12 +514,11 @@ const WP_NUMBER = "5491150030414"; // <-- PONÉ TU NÚMERO REAL
 /* Promos random */
 const PROMOS = [
   { tag:"50% EXTRA", title:"Bono 50% Navidad", text:"Recibís un 50% extra sobre tu próxima carga mínima de $5.000.", footnote:"Tope de bonificación a coordinar con el operador." },
-  { tag:"$3.000 BONUS", title:"$3.000 de regalo", text:"Sumás $3.000 extra con tu carga a partir de $10.000.", footnote:"Válido una vez por usuario durante la promo." },
-  { tag:"DOBLE CARGA", title:"Doble de tu carga", text:"Te doblamos tu próxima carga navideña (hasta el límite acordado con el operador).", footnote:"Sujeto a validación manual y condiciones internas." },
+  { tag:"$10.000 BONUS", title:"$10.000 de regalo", text:"Sumás $10.000 extra con tu carga a partir de $5.000.", footnote:"Válido una vez por usuario durante la promo." },
+  { tag:"TU CARGA X 2", title:"Doble de tu carga", text:"Te doblamos tu próxima carga navideña (hasta el límite acordado con el operador).", footnote:"Sujeto a validación manual y condiciones internas." },
   { tag:"10% CASHBACK", title:"10% de vuelta", text:"Te devolvemos el 10% de tus pérdidas netas de la noche en fichas.", footnote:"Se acredita dentro de las 24 hs." },
-  { tag:"SORTEO", title:"Sorteo especial $50.000", text:"Participás de un sorteo navideño por hasta $50.000 en fichas.", footnote:"Fecha y condiciones a confirmar con el operador." },
-  { tag:"GIROS EXTRA", title:"Giros extra en ruleta", text:"Accedés a giros extra en la ruleta promocional de BET300.", footnote:"Consultá con el operador cómo activarlos." }
-];
+  { tag:"20% EXTRA", title:"Bono 20% Navidad", text:"Recibís un 20% extra sobre tu próxima carga mínima de $5.000.", footnote:"Tope de bonificación a coordinar con el operador." },
+  { tag:"$5.000 BONUS", title:"$5.000 de regalo", text:"Sumás $5.000 extra con tu carga a partir de $5.000.", footnote:"Válido una vez por usuario durante la promo." },
 
 function shuffle(arr){
   const a = arr.slice();
