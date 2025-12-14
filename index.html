@@ -35,7 +35,7 @@ body{
   overflow-x:hidden;
 }
 
-/* Fondo con degradé y glow */
+/* Fondo con glow */
 body::before{
   content:"";
   position:fixed;inset:0;z-index:-2;
@@ -64,7 +64,7 @@ body::before{
   100%{transform:translate3d(var(--drift,20px), 110vh,0);opacity:0}
 }
 
-/* Layout general */
+/* Layout */
 .container{
   max-width:960px;
   margin:0 auto;
@@ -157,10 +157,8 @@ body::before{
   color:var(--muted);
 }
 
-/* Grid regalos */
-.section{
-  margin-top:18px;
-}
+/* Sección regalos */
+.section{margin-top:18px}
 .section-title{
   font-size:18px;
   font-weight:700;
@@ -183,7 +181,7 @@ body::before{
   .gift-grid{grid-template-columns:minmax(0,1fr)}
 }
 
-/* Tarjeta regalo */
+/* Tarjeta */
 .gift{
   background:var(--panel);
   border-radius:18px;
@@ -210,7 +208,7 @@ body::before{
 }
 .gift:hover::before{opacity:1}
 
-/* Caja animada */
+/* Caja */
 .gift-box{
   position:relative;
   height:110px;
@@ -219,10 +217,12 @@ body::before{
   justify-content:center;
   margin-bottom:12px;
 }
+
+/* Caja ROJA */
 .gift-body{
   width:84px;height:64px;
   border-radius:10px;
-  background:linear-gradient(145deg,#0ea5e9,#0369a1);
+  background:linear-gradient(145deg,#b91c1c,#7f1d1d);
   position:relative;
   box-shadow:0 12px 22px rgba(15,23,42,.85);
 }
@@ -234,24 +234,35 @@ body::before{
   mix-blend-mode:screen;
   opacity:.55;
 }
+
+/* Cintas DORADAS */
 .gift-ribbon-vert,
 .gift-ribbon-horiz{
   position:absolute;
-  background:linear-gradient(180deg,#f97316,#ea580c);
+  background:linear-gradient(180deg,#fde68a,#facc15,#ca8a04);
 }
 .gift-ribbon-vert{
-  width:14px;height:100%;left:50%;transform:translateX(-50%);
+  width:14px;height:64px;
+  left:50%;
+  bottom:0;
+  transform:translateX(-50%);
   border-radius:999px;
 }
 .gift-ribbon-horiz{
-  height:12px;width:100%;top:45%;
+  height:12px;width:84px;
+  bottom:26px;
+  left:50%;
+  transform:translateX(-50%);
+  border-radius:999px;
 }
+
+/* Tapa */
 .gift-lid{
   position:absolute;
   bottom:56px;
   width:92px;height:26px;
   border-radius:9px;
-  background:linear-gradient(145deg,#fbbf24,#f97316);
+  background:linear-gradient(145deg,#dc2626,#7f1d1d);
   box-shadow:0 8px 14px rgba(15,23,42,.75);
   transform-origin:50% 100%;
   transition:transform .28s ease, box-shadow .28s ease;
@@ -264,11 +275,13 @@ body::before{
   mix-blend-mode:screen;
   opacity:.6;
 }
+
+/* Moño dorado */
 .gift-bow{
   position:absolute;
   bottom:80px;
   width:44px;height:26px;
-  background:radial-gradient(circle at 30% 30%,#fee2e2,#f97316);
+  background:radial-gradient(circle at 30% 30%,#fef3c7,#facc15,#ca8a04);
   border-radius:999px 999px 6px 6px;
   box-shadow:0 6px 10px rgba(15,23,42,.7);
 }
@@ -285,7 +298,7 @@ body::before{
 .gift-bow::before{left:-4px;top:2px;transform:rotate(-14deg)}
 .gift-bow::after{right:-4px;top:2px;transform:scaleX(-1) rotate(-14deg)}
 
-/* Etiqueta en la caja */
+/* Etiqueta */
 .gift-label{
   position:absolute;
   bottom:6px;
@@ -301,26 +314,13 @@ body::before{
   color:#fefce8;
 }
 
-/* Contenido del premio */
-.gift-content{
-  text-align:center;
-  margin-top:4px;
-}
-.gift-title{
-  font-size:15px;
-  font-weight:800;
-  margin-bottom:4px;
-}
-.gift-text{
-  font-size:13px;
-  color:var(--muted);
-  min-height:3.6em;
-}
-.gift-footnote{
-  margin-top:6px;
-  font-size:11px;
-  color:var(--muted);
-}
+/* Contenido */
+.gift-content{text-align:center;margin-top:4px}
+.gift-title{font-size:15px;font-weight:800;margin-bottom:4px}
+.gift-text{font-size:13px;color:var(--muted);min-height:3.6em}
+.gift-footnote{margin-top:6px;font-size:11px;color:var(--muted)}
+
+/* Botón WhatsApp */
 .btn-claim{
   margin-top:10px;
   width:100%;
@@ -328,7 +328,7 @@ body::before{
   border-radius:999px;
   padding:9px 10px;
   font-size:13px;
-  font-weight:700;
+  font-weight:800;
   display:inline-flex;
   align-items:center;
   justify-content:center;
@@ -339,22 +339,57 @@ body::before{
   cursor:pointer;
   transition:transform .16s ease, box-shadow .16s ease, filter .16s ease;
 }
-.btn-claim span.icon{
-  font-size:15px;
-}
+.btn-claim span.icon{font-size:15px}
 .btn-claim:hover{
   transform:translateY(-1px);
   box-shadow:0 14px 24px rgba(5,46,22,.8);
   filter:brightness(1.05);
 }
 
-/* Estado open: tapa levantada */
+/* Open: tapa levantada */
 .gift.open .gift-lid{
   transform:translateY(-16px) rotateX(18deg);
   box-shadow:0 18px 26px rgba(15,23,42,.9);
 }
 
-/* CTA global */
+/* ===== Ocultar premios hasta elegir ===== */
+.gift .gift-title,
+.gift .gift-text,
+.gift .gift-footnote,
+.gift .btn-claim{
+  opacity:0;
+  transform:translateY(6px);
+  pointer-events:none;
+}
+.gift.open .gift-title,
+.gift.open .gift-text,
+.gift.open .gift-footnote,
+.gift.open .btn-claim{
+  opacity:1;
+  transform:none;
+  pointer-events:auto;
+  transition:opacity .25s ease, transform .25s ease;
+}
+
+/* Regalos no elegidos */
+.gift.disabled{
+  opacity:.55;
+  filter:grayscale(1);
+  pointer-events:none;
+}
+.gift.disabled .gift-title,
+.gift.disabled .gift-footnote,
+.gift.disabled .btn-claim{
+  display:none;
+}
+.gift.disabled .gift-text{
+  opacity:1;
+  transform:none;
+  min-height:auto;
+  color:#cbd5f5;
+}
+
+/* Footer */
 .footer-cta{
   margin-top:22px;
   text-align:center;
@@ -362,35 +397,22 @@ body::before{
   color:var(--muted);
 }
 .footer-cta b{color:#e5e7eb}
-.footer-cta a{
-  color:#bbf7d0;
-  text-decoration:none;
-  font-weight:700;
-}
 
-/* Responsivo header */
+/* Responsive header */
 @media(max-width:520px){
-  .header{
-    flex-direction:column;
-    align-items:flex-start;
-  }
-  .badge-time{
-    align-self:flex-start;
-  }
+  .header{flex-direction:column;align-items:flex-start}
+  .badge-time{align-self:flex-start}
 }
 </style>
 </head>
 <body>
 
-<!-- Nieve -->
 <div class="snow" id="snow"></div>
 
 <div class="container">
 
-  <!-- Header -->
   <header class="header">
     <div class="brand">
-      <!-- Usá el mismo logo-bet300.svg y ahí le agregás el gorro navideño -->
       <img src="logo-bet300.svg" alt="BET300">
       <span class="brand-tag">Especial Navidad</span>
     </div>
@@ -400,32 +422,29 @@ body::before{
     </div>
   </header>
 
-  <!-- Hero -->
   <section class="hero">
     <div class="hero-main">
-      <div class="hero-kicker">promo exclusiva para clientes</div>
+      <div class="hero-kicker">promo exclusiva para reactivación</div>
       <h1 class="hero-title">
-        Abrí tu <span>regalo de Navidad</span> y llevate fichas extra.
+        Elegí un <span>regalo de Navidad</span> y desbloqueá tu promo.
       </h1>
       <p class="hero-sub">
-        Elegí uno de los <b>3 regalos sorpresa</b> y descubrí qué bono te toca.
-        Todas las promos se acreditan con tu <b>próxima carga mínima</b>.
+        Tenés <b>1 elección</b>. Abrí un regalo y descubrí tu bonus.
+        Se acredita con tu <b>próxima carga mínima</b>.
       </p>
       <p class="hero-note">
-        *Promos válidas solo por tiempo limitado y sujetas a verificación con el operador.
+        *Promos válidas por tiempo limitado. Sujetas a verificación con el operador.
       </p>
     </div>
   </section>
 
-  <!-- Regalos -->
   <section class="section">
-    <h2 class="section-title">Elegí uno de los 3 regalos</h2>
+    <h2 class="section-title">Elegí 1 de 3 regalos 🎁</h2>
     <p class="section-sub">
-      Tocá un regalo para abrirlo. Si te gusta la promo, apretá en <b>“Hablar por WhatsApp”</b> y coordinás la carga con el operador.
+      No vas a ver los premios hasta elegir. Cuando elijas, te mostramos también lo que había en los otros regalos.
     </p>
 
     <div class="gift-grid" id="giftGrid">
-      <!-- Gift 1 -->
       <article class="gift" data-gift="0">
         <div class="gift-box">
           <div class="gift-body"></div>
@@ -436,7 +455,7 @@ body::before{
           <div class="gift-label"></div>
         </div>
         <div class="gift-content">
-          <h3 class="gift-title">Regalo 1</h3>
+          <h3 class="gift-title"></h3>
           <p class="gift-text"></p>
           <button class="btn-claim" type="button">
             <span class="icon">📲</span>
@@ -446,7 +465,6 @@ body::before{
         </div>
       </article>
 
-      <!-- Gift 2 -->
       <article class="gift" data-gift="1">
         <div class="gift-box">
           <div class="gift-body"></div>
@@ -457,7 +475,7 @@ body::before{
           <div class="gift-label"></div>
         </div>
         <div class="gift-content">
-          <h3 class="gift-title">Regalo 2</h3>
+          <h3 class="gift-title"></h3>
           <p class="gift-text"></p>
           <button class="btn-claim" type="button">
             <span class="icon">📲</span>
@@ -467,7 +485,6 @@ body::before{
         </div>
       </article>
 
-      <!-- Gift 3 -->
       <article class="gift" data-gift="2">
         <div class="gift-box">
           <div class="gift-body"></div>
@@ -478,7 +495,7 @@ body::before{
           <div class="gift-label"></div>
         </div>
         <div class="gift-content">
-          <h3 class="gift-title">Regalo 3</h3>
+          <h3 class="gift-title"></h3>
           <p class="gift-text"></p>
           <button class="btn-claim" type="button">
             <span class="icon">📲</span>
@@ -491,58 +508,23 @@ body::before{
   </section>
 
   <div class="footer-cta">
-    Si tenés dudas sobre cómo usar tu promo, escribí a tu operador y mencioná
-    <b>“Promo Navidad BET300”</b>.
+    Si tenés dudas, escribí y mencioná <b>“Promo Navidad BET300”</b>.
   </div>
 </div>
 
 <script>
-/* ========= Config básica ========= */
+/* ========= Config ========= */
+const WP_NUMBER = "5491150030414"; // <-- PONÉ TU NÚMERO REAL
 
-// Cambiá este número por el que quieras usar en la landing de Navidad
-const WP_NUMBER = "54911xxxxxxxx"; // EJ: 5491123456789
-
-// Lista de promos (random)
+/* Promos random */
 const PROMOS = [
-  {
-    tag: "50% EXTRA",
-    title: "Bono 50% Navidad",
-    text: "Recibís un 50% extra sobre tu próxima carga mínima de $5.000.",
-    footnote: "Tope de bonificación a coordinar con el operador."
-  },
-  {
-    tag: "$3.000 BONUS",
-    title: "$3.000 de regalo",
-    text: "Sumás $3.000 extra con tu carga a partir de $10.000.",
-    footnote: "Válido una vez por usuario durante la promo."
-  },
-  {
-    tag: "DOBLE CARGA",
-    title: "Doble de tu carga",
-    text: "Te doblamos tu próxima carga navideña (hasta el límite acordado con el operador).",
-    footnote: "Sujeto a validación manual y condiciones internas."
-  },
-  {
-    tag: "10% CASHBACK",
-    title: "10% de vuelta",
-    text: "Jugá tranquilo: te devolvemos el 10% de tus pérdidas netas de la noche.",
-    footnote: "El cashback se acredita en fichas en las siguientes 24 hs."
-  },
-  {
-    tag: "SÚPER NAVIDAD",
-    title: "Sorteo especial $50.000",
-    text: "Participás automáticamente de un sorteo navideño por hasta $50.000 en fichas.",
-    footnote: "Fecha del sorteo y condiciones a confirmar con el operador."
-  },
-  {
-    tag: "TIRADAS EXTRA",
-    title: "Giros extra en ruleta promo",
-    text: "Accedés a giros extra en la ruleta promocional de BET300.",
-    footnote: "Consulta con el operador cómo usar tus giros extra."
-  }
+  { tag:"50% EXTRA", title:"Bono 50% Navidad", text:"Recibís un 50% extra sobre tu próxima carga mínima de $5.000.", footnote:"Tope de bonificación a coordinar con el operador." },
+  { tag:"$3.000 BONUS", title:"$3.000 de regalo", text:"Sumás $3.000 extra con tu carga a partir de $10.000.", footnote:"Válido una vez por usuario durante la promo." },
+  { tag:"DOBLE CARGA", title:"Doble de tu carga", text:"Te doblamos tu próxima carga navideña (hasta el límite acordado con el operador).", footnote:"Sujeto a validación manual y condiciones internas." },
+  { tag:"10% CASHBACK", title:"10% de vuelta", text:"Te devolvemos el 10% de tus pérdidas netas de la noche en fichas.", footnote:"Se acredita dentro de las 24 hs." },
+  { tag:"SORTEO", title:"Sorteo especial $50.000", text:"Participás de un sorteo navideño por hasta $50.000 en fichas.", footnote:"Fecha y condiciones a confirmar con el operador." },
+  { tag:"GIROS EXTRA", title:"Giros extra en ruleta", text:"Accedés a giros extra en la ruleta promocional de BET300.", footnote:"Consultá con el operador cómo activarlos." }
 ];
-
-/* ========= Utilidades ========= */
 
 function shuffle(arr){
   const a = arr.slice();
@@ -553,44 +535,58 @@ function shuffle(arr){
   return a;
 }
 
-/* ========= Pinta regalos ========= */
-
+/* ========= Regalos: oculto hasta elegir ========= */
 function setupGifts(){
   const selected = shuffle(PROMOS).slice(0,3);
   const gifts = document.querySelectorAll(".gift");
+  let opened = false;
 
   gifts.forEach((gift, idx)=>{
     const promo = selected[idx];
-    gift.dataset.promoTitle = promo.title;
 
-    gift.querySelector(".gift-label").textContent = promo.tag;
+    // etiqueta visible siempre
+    gift.querySelector(".gift-label").textContent = "Regalo sorpresa";
+
+    // contenido (queda oculto por CSS hasta open)
     gift.querySelector(".gift-title").textContent = promo.title;
     gift.querySelector(".gift-text").textContent = promo.text;
     gift.querySelector(".gift-footnote").textContent = promo.footnote;
 
-    // Abrir caja al hacer click en la tarjeta
+    // Click en tarjeta -> elegir 1
     gift.addEventListener("click", (ev)=>{
-      // Evitar que el click en el botón dispare doble acción
+      if(opened) return;
       if(ev.target.closest(".btn-claim")) return;
-      gift.classList.toggle("open");
+
+      opened = true;
+      gift.classList.add("open");
+      gift.querySelector(".gift-label").textContent = promo.tag;
+
+      // Mostrar los otros dos como "no elegidos" + qué había
+      gifts.forEach(other=>{
+        if(other !== gift){
+          other.classList.add("disabled");
+          const otherIdx = Number(other.dataset.gift);
+          const p = selected[otherIdx];
+          other.querySelector(".gift-label").textContent = "No elegido";
+          other.querySelector(".gift-text").textContent =
+            `Este no fue tu regalo 🎁\n\nHabía: ${p.title}`;
+        }
+      });
     });
 
     // Botón WhatsApp
-    const btn = gift.querySelector(".btn-claim");
-    btn.addEventListener("click",(ev)=>{
+    gift.querySelector(".btn-claim").addEventListener("click",(ev)=>{
       ev.stopPropagation();
-      gift.classList.add("open");
-      const msg = `Hola, vi la *Promo Navidad BET300* y quiero usar:\n`+
-                  `👉 ${promo.title}\n\n`+
-                  `¿Me contás condiciones y mínimo de carga?`;
-      const url = `https://wa.me/${WP_NUMBER}?text=${encodeURIComponent(msg)}`;
-      window.location.href = url;
+      const msg =
+        `Hola, abrí mi *Regalo de Navidad BET300* 🎄\n\n`+
+        `🎁 Promo obtenida: ${promo.title}\n\n`+
+        `¿Me contás condiciones y mínimo de carga?`;
+      window.location.href = `https://wa.me/${WP_NUMBER}?text=${encodeURIComponent(msg)}`;
     });
   });
 }
 
-/* ========= Cuenta regresiva simbólica al fin de día ========= */
-
+/* ========= Countdown ========= */
 function setupCountdown(){
   const el = document.getElementById("countdown");
   function update(){
@@ -607,8 +603,7 @@ function setupCountdown(){
   setInterval(update,1000);
 }
 
-/* ========= Nieve ========= */
-
+/* ========= Snow ========= */
 function setupSnow(){
   const snow = document.getElementById("snow");
   const flakes = 40;
